@@ -1,19 +1,30 @@
-FROM golang:1.10
+FROM ubuntu:16.04
+
+ENV GOPATH /go
 
 # Update the operating system and install base tools:
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
 	# Install specific libssl for mongo-org-* components:
-	wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u6_amd64.deb && \
-	dpkg -i libssl1.0.0_1.0.1t-1+deb8u6_amd64.deb && \
+	#wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u6_amd64.deb && \
+	#dpkg -i libssl1.0.0_1.0.1t-1+deb8u6_amd64.deb && \
 	# Add mongodb tools:
 	echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list && \
 	# Install desired components:
 	apt-get update && \
 	apt-get upgrade -y && \
-	apt-get install -y zip mongodb-org-tools mongodb-org-shell
+	apt-get install -y zip mongodb-org-tools mongodb-org-shell git wget && \
+	# Create the Go workspace:
+	mkdir /go && \
+    mkdir /go/src && \
+    mkdir /go/bin && \
+    mkdir /go/pkg && \
+    cd /go && \
+	wget --no-check-certificate -O go.tar.gz https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz && \
+	tar -C /usr/local -xzf go.tar.gz && \
+	rm go.tar.gz
 
 # Install libraries for Re4EEE and Ocean:
-RUN \
+RUN export PATH=$PATH:/usr/local/go/bin && \
 	# Ocean:
 	go get github.com/SommerEngineering/Ocean && \
 	# Generator for UUIDs:
@@ -25,7 +36,8 @@ RUN \
 ADD . /go/src/github.com/SommerEngineering/Re4EEE/
 
 # Compile and Setup
-RUN	cd /go/src/github.com/SommerEngineering/Re4EEE && \
+RUN	export PATH=$PATH:/usr/local/go/bin && \
+	cd /go/src/github.com/SommerEngineering/Re4EEE && \
 	# Compile the Re4EEE:
 	go install && \
 	# Copy the final binary and the runtime scripts to the home folder:
