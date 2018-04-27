@@ -1,5 +1,5 @@
 # About
-This repository contains all sources for the e-learning recommendation system elearning-finder.net and elearn-o-mat.net. This work is part of the project "ELLI – Excellent Teaching and Learning in Engineering Sciences" and was funded by the federal ministry of education and research, Germany.
+This repository contains all sources for the e-learning recommendation system elearning-finder.net and elearn-o-mat.net. This work is part of the project "[ELLI](http://elli-online.net) – Excellent Teaching and Learning in Engineering Sciences" and was funded by the federal ministry of education and research, Germany. This work was carried out at the [IMA of RWTH Aachen University](https://cybernetics-lab.de/).
 
 # Installation
 To set up the project, a clone of the repository is necessary. Afterwards, two options for running the recommendation system are available: Run as Docker container or run as Docker Compose service. In order to run the system as Docker container, a MongoDB database instance must be ready. For the Docker Compose solution, this precondition is not necessary: The necessary database gets started automatically.
@@ -50,7 +50,5 @@ docker-compose up -d --build
 ```
 
 # License
-All sources are available under a BSD 2-clause license and can be used for any purposes, also commercial usage. The author does not provide any support.
-
-# Contact
-In order to get in contact with the author, please write a mail to thorsten.sommer@ima-zlw-ifu.rwth-aachen.de Please notice, that the author cannot provide support.
+[![Creative Commons License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)  
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/). Commercial use of this project is not permitted. Please contact the [IMA of RWTH Aachen University](https://cybernetics-lab.de/).
